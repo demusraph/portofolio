@@ -6,10 +6,9 @@
 <title>Nicodemus Raphael — Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
+:root{
   --black:#050505;--white:#f0ede6;--cream:#e8e2d5;
   --gold:#c9a84c;--gold-dim:#7a6330;--gold-faint:rgba(201,168,76,.07);
-  --red:#c0392b;
   --g1:#0d0d0d;--g2:#141414;--g3:#1e1e1e;--g4:#2a2a2a;--g5:#3d3d3d;
   --g6:#606060;--g7:#909090;--g8:#b8b8b8;
 }
@@ -45,7 +44,6 @@ nav.on{background:rgba(5,5,5,.92);border-bottom:1px solid var(--g4);backdrop-fil
 .hscroll{position:absolute;bottom:2rem;right:3rem;display:flex;flex-direction:column;align-items:center;gap:.35rem;opacity:0;animation:fadeUp .6s 1.4s forwards;}
 .hscroll-line{width:1px;height:55px;background:linear-gradient(to bottom,var(--gold),transparent);animation:spulse 2s infinite;}
 .hscroll span{font-size:.55rem;letter-spacing:.22em;color:var(--g6);}
-/* side label */
 .hside{position:absolute;left:3rem;bottom:5rem;writing-mode:vertical-lr;font-size:.58rem;letter-spacing:.2em;color:var(--g5);opacity:0;animation:fadeUp .7s 1.1s forwards;}
 
 /* SECTIONS */
@@ -64,13 +62,9 @@ section{padding:8rem 3rem;position:relative;}
 .stat{border-top:1px solid var(--g4);padding-top:1.3rem;}
 .statnum{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);line-height:1;}
 .statlbl{font-size:.58rem;letter-spacing:.14em;color:var(--g6);margin-top:.4rem;}
-/* code card */
 .codecard{border:1px solid var(--g4);padding:1.8rem;font-size:.68rem;color:var(--g6);line-height:2;background:var(--g2);}
 .codecard .cc{color:var(--gold);font-size:.56rem;letter-spacing:.18em;margin-bottom:.9rem;}
-.kw{color:var(--g5);}
-.str{color:var(--white);}
-.num{color:var(--gold);}
-/* marquee */
+.kw{color:var(--g5);}.str{color:var(--white);}.num{color:var(--gold);}
 .mwrap{overflow:hidden;border-top:1px solid var(--g4);border-bottom:1px solid var(--g4);padding:1rem 0;margin-top:3rem;}
 .mtrack{display:flex;gap:2.5rem;white-space:nowrap;animation:mscroll 20s linear infinite;}
 .mtrack span{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.1em;color:var(--g4);}
@@ -79,7 +73,6 @@ section{padding:8rem 3rem;position:relative;}
 /* SKILLS */
 #skills{background:var(--black);}
 .skgrid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin-top:4.5rem;}
-.skcol{}
 .sktitle{font-size:.58rem;letter-spacing:.2em;color:var(--g5);text-transform:uppercase;margin-bottom:1.3rem;}
 .sktags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem;}
 .sktag{padding:.38rem .85rem;border:1px solid var(--g4);font-size:.65rem;letter-spacing:.06em;color:var(--g7);position:relative;overflow:hidden;cursor:default;transition:color .3s,border-color .3s;}
@@ -87,35 +80,87 @@ section{padding:8rem 3rem;position:relative;}
 .sktag:hover::before{width:100%;}
 .sktag:hover{color:var(--black);border-color:var(--gold);}
 .sktag span{position:relative;z-index:1;}
-/* bars */
 .sbar{margin-bottom:1.8rem;}
 .sbhead{display:flex;justify-content:space-between;margin-bottom:.5rem;font-size:.65rem;color:var(--g6);}
 .sbtrack{height:1px;background:var(--g4);position:relative;}
 .sbfill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-dim));width:0;transition:width 1.3s cubic-bezier(.4,0,.2,1);}
-/* interests */
 .interests{margin-top:3rem;}
 .int-title{font-size:.58rem;letter-spacing:.2em;color:var(--g5);margin-bottom:1rem;}
 .int-list{display:flex;flex-wrap:wrap;gap:.5rem;}
 .int-tag{padding:.3rem .8rem;background:var(--gold-faint);border:1px solid var(--gold-dim);font-size:.62rem;color:var(--gold);letter-spacing:.06em;}
 
-/* PROJECTS */
+/* ── PROJECTS (REBUILT) ── */
 #projects{background:var(--g1);}
 .plist{margin-top:4.5rem;}
-.pitem{padding:2.5rem 0;border-top:1px solid var(--g4);cursor:pointer;position:relative;}
-.pitem-row{display:grid;grid-template-columns:70px 1fr auto;gap:2.5rem;align-items:start;}
-.pitem::after{content:'↗';position:absolute;right:0;top:2.5rem;font-size:1.1rem;color:var(--g4);transition:color .3s,transform .3s;}
-.pitem:hover::after{color:var(--gold);transform:translate(3px,-3px);}
+
+.pcard{
+  border-top:1px solid var(--g4);
+  position:relative;
+}
+/* main clickable row */
+.prow{
+  display:grid;
+  grid-template-columns:70px 1fr auto;
+  gap:2rem;
+  align-items:start;
+  padding:2.8rem 0 2.8rem;
+  cursor:pointer;
+  transition:background .2s;
+}
+.prow:hover .ptitle{color:var(--gold);}
+
+/* top-right action bar */
+.pactions{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:.8rem;
+  padding-top:.3rem;
+}
+
+/* "view deck" link button */
+.pdeck-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  font-size:.58rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--gold);
+  border:1px solid var(--gold-dim);
+  padding:.3rem .7rem;
+  text-decoration:none;
+  background:transparent;
+  transition:background .25s,color .25s;
+  white-space:nowrap;
+  cursor:pointer;
+  z-index:10;
+  position:relative;
+}
+.pdeck-btn:hover{background:var(--gold);color:var(--black);}
+.pdeck-btn svg{flex-shrink:0;}
+
+/* expand arrow */
+.parrow{
+  font-size:1.1rem;
+  color:var(--g4);
+  transition:color .3s,transform .3s;
+  line-height:1;
+  cursor:pointer;
+}
+.pcard.open .parrow{color:var(--gold);transform:rotate(45deg);}
+
 .pnum{font-size:.6rem;color:var(--g5);letter-spacing:.1em;padding-top:.35rem;}
 .ptitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,2.8vw,2.4rem);line-height:1;letter-spacing:.03em;margin-bottom:.6rem;transition:color .3s;}
-.pitem:hover .ptitle{color:var(--gold);}
-.pdesc{font-size:.72rem;color:var(--g6);line-height:1.8;max-width:520px;}
-.ptags{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:flex-end;max-width:180px;}
+.pdesc{font-size:.72rem;color:var(--g6);line-height:1.8;max-width:500px;}
+.ptags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.8rem;}
 .ptag{font-size:.55rem;letter-spacing:.1em;color:var(--gold);border:1px solid var(--gold-dim);padding:.18rem .5rem;}
+
 /* panel */
-.ppanel{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.4,0,.2,1);}
-.ppanel.open{max-height:360px;}
-.ppinner{padding:2rem 0 2.5rem 95px;display:grid;grid-template-columns:1fr 1fr;gap:3rem;border-top:1px solid var(--g3);margin-top:.5rem;}
-.ph{font-size:.56rem;letter-spacing:.2em;color:var(--gold);margin-bottom:.7rem;}
+.ppanel{max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.4,0,.2,1);}
+.pcard.open .ppanel{max-height:420px;}
+.ppinner{padding:0 0 3rem 95px;display:grid;grid-template-columns:1fr 1fr;gap:3rem;border-top:1px solid var(--g3);}
+.ph{font-size:.56rem;letter-spacing:.2em;color:var(--gold);margin-bottom:.7rem;padding-top:1.8rem;}
 .pbody{font-size:.7rem;color:var(--g6);line-height:1.9;}
 .phl{list-style:none;}
 .phl li{font-size:.7rem;color:var(--g6);padding:.28rem 0;border-bottom:1px solid var(--g3);display:flex;gap:.7rem;}
@@ -124,7 +169,6 @@ section{padding:8rem 3rem;position:relative;}
 /* EXPERIENCE */
 #experience{background:var(--black);}
 .expitem{display:grid;grid-template-columns:140px 1fr;gap:3rem;padding:3rem 0;border-top:1px solid var(--g4);}
-.expmeta{}
 .expyear{font-size:.6rem;letter-spacing:.15em;color:var(--gold-dim);margin-bottom:.3rem;}
 .expco{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--white);}
 .exprole{font-size:.62rem;color:var(--g6);margin-top:.2rem;}
@@ -143,34 +187,25 @@ section{padding:8rem 3rem;position:relative;}
 .ctlink:hover{color:var(--gold);border-color:var(--gold-dim);}
 .cttype{font-size:.56rem;color:var(--g4);letter-spacing:.15em;text-transform:uppercase;min-width:65px;}
 
-/* FOOTER */
 footer{padding:1.8rem 3rem;border-top:1px solid var(--g4);display:flex;justify-content:space-between;align-items:center;}
 .fcopy{font-size:.58rem;color:var(--g5);letter-spacing:.1em;}
 
-/* REVEAL */
 .rv{opacity:0;transform:translateY(28px);transition:opacity .75s,transform .75s;}
 .rv.vis{opacity:1;transform:none;}
 .d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}
+.divider{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--g4),transparent);}
 
-/* DIVIDER */
-.divider{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--g4),transparent);margin:0;}
-
-/* KEYFRAMES */
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
 @keyframes spulse{0%,100%{opacity:.4}50%{opacity:1}}
 @keyframes mscroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-/* RESPONSIVE */
 @media(max-width:768px){
-  section{padding:5rem 1.5rem;}
-  nav{padding:1rem 1.5rem;}
+  section{padding:5rem 1.5rem;}nav{padding:1rem 1.5rem;}
   .agrid,.skgrid,.ctgrid{grid-template-columns:1fr;gap:3rem;}
-  .pitem-row{grid-template-columns:1fr;gap:.8rem;}
-  .ptags{justify-content:flex-start;max-width:100%;}
+  .prow{grid-template-columns:1fr;gap:.8rem;}
   .ppinner{padding-left:0;grid-template-columns:1fr;}
   .expitem{grid-template-columns:1fr;gap:.8rem;}
   .stats{grid-template-columns:1fr 1fr;}
-  .hname{font-size:clamp(3rem,14vw,5rem);}
 }
 </style>
 </head>
@@ -179,7 +214,6 @@ footer{padding:1.8rem 3rem;border-top:1px solid var(--g4);display:flex;justify-c
 <div id="pgbar"></div>
 <div id="cur"></div>
 
-<!-- NAV -->
 <nav id="nav">
   <div class="nlogo">NRS</div>
   <div class="nlinks">
@@ -197,20 +231,9 @@ footer{padding:1.8rem 3rem;border-top:1px solid var(--g4);display:flex;justify-c
   <div class="hgrid"></div>
   <div class="hside">INDUSTRIAL ENGINEERING — UI 2023</div>
   <div class="htag">— 00 / PORTFOLIO · BEKASI, INDONESIA</div>
-  <h1 class="hname">
-    NICODEMUS<br>
-    <em>RAPHAEL</em><br>
-    SIANTURI
-  </h1>
-  <p class="hrole">
-    Industrial Engineering @ <span>Universitas Indonesia</span> &nbsp;·&nbsp;
-    Founder of <span>108 Studio</span> &nbsp;·&nbsp;
-    Product &amp; Operations &nbsp;·&nbsp; GPA 3.44
-  </p>
-  <div class="hscroll">
-    <div class="hscroll-line"></div>
-    <span>SCROLL</span>
-  </div>
+  <h1 class="hname">NICODEMUS<br><em>RAPHAEL</em><br>SIANTURI</h1>
+  <p class="hrole">Industrial Engineering @ <span>Universitas Indonesia</span> &nbsp;·&nbsp; Founder of <span>108 Studio</span> &nbsp;·&nbsp; Product &amp; Operations &nbsp;·&nbsp; GPA 3.44</p>
+  <div class="hscroll"><div class="hscroll-line"></div><span>SCROLL</span></div>
 </section>
 
 <div class="divider"></div>
@@ -222,23 +245,14 @@ footer{padding:1.8rem 3rem;border-top:1px solid var(--g4);display:flex;justify-c
   <div class="agrid">
     <div>
       <div class="abody rv d1">
-        <p>I'm <strong>Nicodemus Raphael</strong> — an Industrial Engineering student at <strong>Universitas Indonesia</strong> who sits at the intersection of <strong>systems thinking</strong> and <strong>digital creation</strong>.</p>
-        <p>By day I apply DMAIC, simulation modelling, and lean frameworks to real-world operations problems. By night I run <strong>108 Studio</strong> — a digital design studio I founded that has shipped projects totalling over <strong>1 million visits</strong>.</p>
-        <p>I care deeply about <strong>product management, UX research,</strong> and building things that actually work — whether that's a Six Sigma quality improvement for a local SME, or a 3D game world for a global client.</p>
+        <p>I'm <strong>Nicodemus Raphael</strong> — an Industrial Engineering student at <strong>Universitas Indonesia</strong> at the intersection of <strong>systems thinking</strong> and <strong>digital creation</strong>.</p>
+        <p>By day I apply DMAIC, simulation modelling, and lean frameworks to real-world operations problems. By night I run <strong>108 Studio</strong> — a digital design studio I founded totalling over <strong>1 million visits</strong>.</p>
+        <p>I care deeply about <strong>product management, UX research,</strong> and building things that work — whether that's a Six Sigma quality improvement or a 3D game world for a global client.</p>
       </div>
       <div class="stats rv d2">
-        <div class="stat">
-          <div class="statnum" data-count="3">0</div>
-          <div class="statlbl">MAJOR PROJECTS</div>
-        </div>
-        <div class="stat">
-          <div class="statnum" data-count="20">0</div>
-          <div class="statlbl">STUDIO CLIENTS</div>
-        </div>
-        <div class="stat">
-          <div class="statnum" data-count="1">0</div>
-          <div class="statlbl">M+ VISITS</div>
-        </div>
+        <div class="stat"><div class="statnum" data-count="4">0</div><div class="statlbl">MAJOR PROJECTS</div></div>
+        <div class="stat"><div class="statnum" data-count="20">0</div><div class="statlbl">STUDIO CLIENTS</div></div>
+        <div class="stat"><div class="statnum" data-count="1">0</div><div class="statlbl">M+ VISITS</div></div>
       </div>
     </div>
     <div class="rv d2">
@@ -260,8 +274,8 @@ footer{padding:1.8rem 3rem;border-top:1px solid var(--g4);display:flex;justify-c
   </div>
   <div class="mwrap">
     <div class="mtrack">
-      <span>INDUSTRIAL ENGINEERING</span><span class="acc">✦</span><span>PRODUCT DESIGN</span><span class="acc">✦</span><span>108 STUDIO</span><span class="acc">✦</span><span>SIX SIGMA</span><span class="acc">✦</span><span>SIMULATION</span><span class="acc">✦</span><span>IoT DEVICES</span><span class="acc">✦</span><span>UX RESEARCH</span><span class="acc">✦</span>
-      <span>INDUSTRIAL ENGINEERING</span><span class="acc">✦</span><span>PRODUCT DESIGN</span><span class="acc">✦</span><span>108 STUDIO</span><span class="acc">✦</span><span>SIX SIGMA</span><span class="acc">✦</span><span>SIMULATION</span><span class="acc">✦</span><span>IoT DEVICES</span><span class="acc">✦</span><span>UX RESEARCH</span><span class="acc">✦</span>
+      <span>INDUSTRIAL ENGINEERING</span><span class="acc">✦</span><span>PRODUCT DESIGN</span><span class="acc">✦</span><span>108 STUDIO</span><span class="acc">✦</span><span>SIX SIGMA</span><span class="acc">✦</span><span>SIMULATION</span><span class="acc">✦</span><span>IoT DEVICES</span><span class="acc">✦</span><span>DATA ANALYTICS</span><span class="acc">✦</span><span>KNN REGRESSION</span><span class="acc">✦</span>
+      <span>INDUSTRIAL ENGINEERING</span><span class="acc">✦</span><span>PRODUCT DESIGN</span><span class="acc">✦</span><span>108 STUDIO</span><span class="acc">✦</span><span>SIX SIGMA</span><span class="acc">✦</span><span>SIMULATION</span><span class="acc">✦</span><span>IoT DEVICES</span><span class="acc">✦</span><span>DATA ANALYTICS</span><span class="acc">✦</span><span>KNN REGRESSION</span><span class="acc">✦</span>
     </div>
   </div>
 </section>
@@ -277,69 +291,43 @@ footer{padding:1.8rem 3rem;border-top:1px solid var(--g4);display:flex;justify-c
       <div class="rv d1">
         <div class="sktitle">Data & Analysis</div>
         <div class="sktags">
-          <div class="sktag"><span>Excel</span></div>
-          <div class="sktag"><span>Google Sheets</span></div>
-          <div class="sktag"><span>Python</span></div>
-          <div class="sktag"><span>DMAIC / Six Sigma</span></div>
-          <div class="sktag"><span>FMEA</span></div>
-          <div class="sktag"><span>Fishbone Diagrams</span></div>
+          <div class="sktag"><span>Excel</span></div><div class="sktag"><span>Google Sheets</span></div>
+          <div class="sktag"><span>Python</span></div><div class="sktag"><span>DMAIC / Six Sigma</span></div>
+          <div class="sktag"><span>FMEA</span></div><div class="sktag"><span>Fishbone Diagrams</span></div>
+          <div class="sktag"><span>scikit-learn</span></div><div class="sktag"><span>pandas / NumPy</span></div>
         </div>
       </div>
       <div class="rv d2">
         <div class="sktitle">Design & Prototyping</div>
         <div class="sktags">
-          <div class="sktag"><span>Figma</span></div>
-          <div class="sktag"><span>Photoshop</span></div>
-          <div class="sktag"><span>Blender</span></div>
-          <div class="sktag"><span>Roblox Studio</span></div>
+          <div class="sktag"><span>Figma</span></div><div class="sktag"><span>Photoshop</span></div>
+          <div class="sktag"><span>Blender</span></div><div class="sktag"><span>Roblox Studio</span></div>
         </div>
       </div>
       <div class="rv d3">
         <div class="sktitle">Methods & Frameworks</div>
         <div class="sktags">
-          <div class="sktag"><span>Simio</span></div>
-          <div class="sktag"><span>Design Thinking</span></div>
-          <div class="sktag"><span>5W+1H</span></div>
-          <div class="sktag"><span>CTQ Analysis</span></div>
-          <div class="sktag"><span>Discrete-Event Simulation</span></div>
+          <div class="sktag"><span>Simio</span></div><div class="sktag"><span>Design Thinking</span></div>
+          <div class="sktag"><span>5W+1H</span></div><div class="sktag"><span>CTQ Analysis</span></div>
+          <div class="sktag"><span>Discrete-Event Simulation</span></div><div class="sktag"><span>KNN Regression</span></div>
         </div>
       </div>
       <div class="interests rv d3">
         <div class="int-title">Interests</div>
         <div class="int-list">
-          <span class="int-tag">Product Management</span>
-          <span class="int-tag">Product Development</span>
-          <span class="int-tag">User Interface</span>
-          <span class="int-tag">User Research</span>
+          <span class="int-tag">Product Management</span><span class="int-tag">Product Development</span>
+          <span class="int-tag">User Interface</span><span class="int-tag">User Research</span>
         </div>
       </div>
     </div>
     <div class="rv d2">
       <div class="sktitle">Proficiency</div>
-      <div class="sbar">
-        <div class="sbhead"><span>Figma / Design</span><span>88%</span></div>
-        <div class="sbtrack"><div class="sbfill" data-width="88"></div></div>
-      </div>
-      <div class="sbar">
-        <div class="sbhead"><span>Excel / Data Analysis</span><span>85%</span></div>
-        <div class="sbtrack"><div class="sbfill" data-width="85"></div></div>
-      </div>
-      <div class="sbar">
-        <div class="sbhead"><span>Python</span><span>72%</span></div>
-        <div class="sbtrack"><div class="sbfill" data-width="72"></div></div>
-      </div>
-      <div class="sbar">
-        <div class="sbhead"><span>Six Sigma / DMAIC</span><span>80%</span></div>
-        <div class="sbtrack"><div class="sbfill" data-width="80"></div></div>
-      </div>
-      <div class="sbar">
-        <div class="sbhead"><span>Blender / 3D</span><span>82%</span></div>
-        <div class="sbtrack"><div class="sbfill" data-width="82"></div></div>
-      </div>
-      <div class="sbar">
-        <div class="sbhead"><span>Simulation (Simio)</span><span>75%</span></div>
-        <div class="sbtrack"><div class="sbfill" data-width="75"></div></div>
-      </div>
+      <div class="sbar"><div class="sbhead"><span>Figma / Design</span><span>88%</span></div><div class="sbtrack"><div class="sbfill" data-width="88"></div></div></div>
+      <div class="sbar"><div class="sbhead"><span>Excel / Data Analysis</span><span>85%</span></div><div class="sbtrack"><div class="sbfill" data-width="85"></div></div></div>
+      <div class="sbar"><div class="sbhead"><span>Python</span><span>72%</span></div><div class="sbtrack"><div class="sbfill" data-width="72"></div></div></div>
+      <div class="sbar"><div class="sbhead"><span>Six Sigma / DMAIC</span><span>80%</span></div><div class="sbtrack"><div class="sbfill" data-width="80"></div></div></div>
+      <div class="sbar"><div class="sbhead"><span>Blender / 3D</span><span>82%</span></div><div class="sbtrack"><div class="sbfill" data-width="82"></div></div></div>
+      <div class="sbar"><div class="sbhead"><span>Simulation (Simio)</span><span>75%</span></div><div class="sbtrack"><div class="sbfill" data-width="75"></div></div></div>
     </div>
   </div>
 </section>
@@ -350,102 +338,163 @@ footer{padding:1.8rem 3rem;border-top:1px solid var(--g4);display:flex;justify-c
 <section id="projects">
   <div class="slabel">03 — University Projects</div>
   <h2 class="stitle rv">WORK THAT<br><em style="font-family:'DM Serif Display',serif;font-style:italic;color:var(--gold)">MATTERED</em></h2>
+
   <div class="plist">
 
-    <!-- Project 1 -->
-    <div class="pitem rv" onclick="toggleP(this)">
-      <div class="pitem-row">
+    <!-- ── PROJECT 1: RayLo ── -->
+    <div class="pcard rv" id="pc1">
+      <div class="prow" onclick="toggleCard('pc1')">
         <div class="pnum">01 · 2025</div>
         <div>
           <div class="ptitle">RayLo — IoT Brake Safety Device</div>
           <div class="pdesc">An aftermarket IoT device that prevents motorcycle brake failure by monitoring disc temperatures in real-time and alerting riders before brake fade occurs.</div>
+          <div class="ptags">
+            <span class="ptag">IoT</span><span class="ptag">Product Design</span><span class="ptag">UX Research</span><span class="ptag">Design Thinking</span>
+          </div>
         </div>
-        <div class="ptags">
-          <span class="ptag">IoT</span><span class="ptag">Product Design</span><span class="ptag">UX Research</span><span class="ptag">Design Thinking</span>
+        <div class="pactions">
+          <a class="pdeck-btn" href="#" onclick="event.stopPropagation();alert('https://drive.google.com/file/d/1S8ZVX1IUJcNmMKnFp7i5H7EbyylKwhk0/view?usp=drive_link');" title="View Project Deck">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            VIEW DECK
+          </a>
+          <div class="parrow">↗</div>
         </div>
       </div>
-    </div>
-    <div class="ppanel">
-      <div class="ppinner">
-        <div>
-          <div class="ph">OVERVIEW</div>
-          <div class="pbody">Designed end-to-end as part of a 5-member Product Design team. RayLo addresses a critical safety gap: 64% of surveyed riders prioritised rapid heat danger alerts. Using 5W+1H and consumer surveys (25+ respondents), the team developed a plug-and-play, cognitively accessible solution for daily riders.</div>
-        </div>
-        <div>
-          <div class="ph">KEY OUTCOMES</div>
-          <ul class="phl">
-            <li>64% of respondents identified as target users in market research</li>
-            <li>Plug-and-play design — zero technical installation required</li>
-            <li>Addresses "silent failure" gap in existing motorcycle safety</li>
-            <li>Applied design-thinking across full ideation-to-prototype cycle</li>
-          </ul>
+      <div class="ppanel">
+        <div class="ppinner">
+          <div>
+            <div class="ph">OVERVIEW</div>
+            <div class="pbody">Designed end-to-end as part of a 5-member Product Design team. RayLo addresses a critical safety gap: 64% of surveyed riders prioritised rapid heat danger alerts. Using 5W+1H and consumer surveys (25+ respondents), the team developed a plug-and-play, cognitively accessible solution for daily riders.</div>
+          </div>
+          <div>
+            <div class="ph">KEY OUTCOMES</div>
+            <ul class="phl">
+              <li>64% of respondents identified as target users in market research</li>
+              <li>Plug-and-play design — zero technical installation required</li>
+              <li>Addresses "silent failure" gap in existing motorcycle safety</li>
+              <li>Applied design-thinking across full ideation-to-prototype cycle</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Project 2 -->
-    <div class="pitem rv d1" onclick="toggleP(this)">
-      <div class="pitem-row">
+    <!-- ── PROJECT 2: Lussie Juice ── -->
+    <div class="pcard rv d1" id="pc2">
+      <div class="prow" onclick="toggleCard('pc2')">
         <div class="pnum">02 · 2025</div>
         <div>
           <div class="ptitle">Quality Improvement — Lussie Juice</div>
           <div class="pdesc">DMAIC-driven quality improvement initiative for a local SME, increasing the production sigma level from 1.67σ to 2.33σ through root cause analysis and new SOPs.</div>
+          <div class="ptags">
+            <span class="ptag">Six Sigma</span><span class="ptag">DMAIC</span><span class="ptag">FMEA</span><span class="ptag">Lean Ops</span>
+          </div>
         </div>
-        <div class="ptags">
-          <span class="ptag">Six Sigma</span><span class="ptag">DMAIC</span><span class="ptag">FMEA</span><span class="ptag">Lean Ops</span>
+        <div class="pactions">
+          <a class="pdeck-btn" href="#" onclick="event.stopPropagation();alert('https://drive.google.com/file/d/1G4A46PD6Ut2i7jt1pPAZLywCO9RJ4q2n/view?usp=drive_linke');" title="View Project Deck">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            VIEW DECK
+          </a>
+          <div class="parrow">↗</div>
         </div>
       </div>
-    </div>
-    <div class="ppanel">
-      <div class="ppinner">
-        <div>
-          <div class="ph">OVERVIEW</div>
-          <div class="pbody">Led as coordinator for a Quality Improvement Project. Applied the full DMAIC framework to standardise production at Lussie Juice — a local SME. Eliminated "feeling-based" operations through Fishbone diagrams, FMEA analysis, and rigorous CTQ factor mapping.</div>
-        </div>
-        <div>
-          <div class="ph">KEY OUTCOMES</div>
-          <ul class="phl">
-            <li>Sigma level raised: 1.67σ → 2.33σ (+0.66σ improvement)</li>
-            <li>Developed standardised SOPs for recipes & staff training</li>
-            <li>RCA via Fishbone & FMEA eliminated root defect causes</li>
-            <li>Significant reduction in product defect rate post-pilot</li>
-          </ul>
+      <div class="ppanel">
+        <div class="ppinner">
+          <div>
+            <div class="ph">OVERVIEW</div>
+            <div class="pbody">Led as coordinator for a Quality Improvement Project. Applied the full DMAIC framework to standardise production at Lussie Juice. Eliminated "feeling-based" operations through Fishbone diagrams, FMEA analysis, and rigorous CTQ factor mapping.</div>
+          </div>
+          <div>
+            <div class="ph">KEY OUTCOMES</div>
+            <ul class="phl">
+              <li>Sigma level raised: 1.67σ → 2.33σ (+0.66σ improvement)</li>
+              <li>Developed standardised SOPs for recipes & staff training</li>
+              <li>RCA via Fishbone & FMEA eliminated root defect causes</li>
+              <li>Significant reduction in product defect rate post-pilot</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Project 3 -->
-    <div class="pitem rv d2" onclick="toggleP(this)">
-      <div class="pitem-row">
+    <!-- ── PROJECT 3: Bangladesh Simulation ── -->
+    <div class="pcard rv d2" id="pc3">
+      <div class="prow" onclick="toggleCard('pc3')">
         <div class="pnum">03 · 2025</div>
         <div>
           <div class="ptitle">Bangladesh Disaster Relief Simulation</div>
           <div class="pdesc">A discrete-event simulation model built in Simio to optimise the multi-modal distribution of 80,000 tons of humanitarian aid to 2 million residents within 40 days.</div>
+          <div class="ptags">
+            <span class="ptag">Simio</span><span class="ptag">Simulation</span><span class="ptag">Logistics</span><span class="ptag">Optimisation</span>
+          </div>
         </div>
-        <div class="ptags">
-          <span class="ptag">Simio</span><span class="ptag">Simulation</span><span class="ptag">Logistics</span><span class="ptag">Optimisation</span>
+        <div class="pactions">
+          <a class="pdeck-btn" href="#" onclick="event.stopPropagation();alert('https://drive.google.com/file/d/1gv9UAJ9PUmloiwVrHH3mrN0mE1I_kCE1/view?usp=drive_link');" title="View Project Deck">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            VIEW DECK
+          </a>
+          <div class="parrow">↗</div>
         </div>
       </div>
-    </div>
-    <div class="ppanel">
-      <div class="ppinner">
-        <div>
-          <div class="ph">OVERVIEW</div>
-          <div class="pbody">System Modelling project simulating disaster relief logistics in Bangladesh. Integrated helicopters, planes, ships, and trucks into a multi-modal strategy. Model validated through Face Validity and experimental data to reflect real-world constraints, balancing a $93.6M operational budget.</div>
-        </div>
-        <div>
-          <div class="ph">KEY OUTCOMES</div>
-          <ul class="phl">
-            <li>100% delivery of 80,000 tons to 2M residents in 40 days</li>
-            <li>Multi-modal strategy covering 4 transport types</li>
-            <li>Total cost optimised at ~$93.6M operational budget</li>
-            <li>Model validated via Face Validity & experimental testing</li>
-          </ul>
+      <div class="ppanel">
+        <div class="ppinner">
+          <div>
+            <div class="ph">OVERVIEW</div>
+            <div class="pbody">System Modelling project simulating disaster relief logistics in Bangladesh. Integrated helicopters, planes, ships, and trucks into a multi-modal strategy. Model validated through Face Validity and experimental data, balancing a $93.6M operational budget.</div>
+          </div>
+          <div>
+            <div class="ph">KEY OUTCOMES</div>
+            <ul class="phl">
+              <li>100% delivery of 80,000 tons to 2M residents in 40 days</li>
+              <li>Multi-modal strategy covering 4 transport types</li>
+              <li>Total cost optimised at ~$93.6M operational budget</li>
+              <li>Model validated via Face Validity & experimental testing</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
 
-  </div>
+    <!-- ── PROJECT 4: KNN Body Fat ── -->
+    <div class="pcard rv d3" id="pc4">
+      <div class="prow" onclick="toggleCard('pc4')">
+        <div class="pnum">04 · 2025</div>
+        <div>
+          <div class="ptitle">Body Fat Prediction — KNN Regression</div>
+          <div class="pdesc">A machine learning model using K-Nearest Neighbors Regression to accurately predict body fat percentage from simple anthropometric measurements, achieving R² = 0.9277 with RMSE of 1.83 — a reliable alternative to costly medical equipment.</div>
+          <div class="ptags">
+            <span class="ptag">Python</span><span class="ptag">KNN</span><span class="ptag">scikit-learn</span><span class="ptag">Data Analytics</span><span class="ptag">Kaggle</span>
+          </div>
+        </div>
+        <div class="pactions">
+          <a class="pdeck-btn" href="#" onclick="event.stopPropagation();alert('https://drive.google.com/file/d/1P1Qk2e0iQHXtXqGN5Fa5GzmOhCW0Iqf_/view?usp=drive_link');" title="View Project Deck">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            VIEW DECK
+          </a>
+          <div class="parrow">↗</div>
+        </div>
+      </div>
+      <div class="ppanel">
+        <div class="ppinner">
+          <div>
+            <div class="ph">OVERVIEW</div>
+            <div class="pbody">Final project for Dasar Analitik Data course (Dr. Arian Dhini). Used the Body Fat Prediction Dataset (252 adult men, 15 variables) from Kaggle. Applied full ML pipeline: EDA with correlation heatmaps, StandardScaler preprocessing, 80/20 train-test split, and K-value optimisation across 19 candidates. Best K=4 selected via R² scoring. Added a bonus classification layer categorising predictions into health tiers (Essential Fat → Obesity).</div>
+          </div>
+          <div>
+            <div class="ph">KEY OUTCOMES</div>
+            <ul class="phl">
+              <li>Best K = 4 · R² = 0.9277 (highest among K=1–19)</li>
+              <li>RMSE = 1.8334 · MAPE = 11.3% — reliable prediction accuracy</li>
+              <li>Abdomen (0.81) & Density (−0.99) identified as top predictors</li>
+              <li>Bonus: 5-tier body fat classification (Athletes → Obesity)</li>
+              <li>Tools: Python, pandas, NumPy, seaborn, scikit-learn, Google Colab</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /plist -->
 </section>
 
 <div class="divider"></div>
@@ -454,15 +503,13 @@ footer{padding:1.8rem 3rem;border-top:1px solid var(--g4);display:flex;justify-c
 <section id="experience">
   <div class="slabel">04 — Experience</div>
   <h2 class="stitle rv">BEYOND THE<br>CLASSROOM</h2>
-
   <div class="expitem rv d1">
-    <div class="expmeta">
+    <div>
       <div class="expyear">OCT 2025 – PRESENT</div>
       <div class="expco">108 Studio</div>
       <div class="exprole">Founder & Project Leader</div>
     </div>
-    <div class="expbody">
-      A digital design studio I founded from the ground up. We serve clients across Indonesia and beyond, specialising in 3D environments and interactive digital experiences.
+    <div class="expbody">A digital design studio I founded from the ground up, serving clients across Indonesia and beyond in 3D environments and interactive digital experiences.
       <ul>
         <li>Projects totalling 1M+ visits via strategic game development</li>
         <li>20+ clients served across 2+ countries</li>
@@ -471,15 +518,13 @@ footer{padding:1.8rem 3rem;border-top:1px solid var(--g4);display:flex;justify-c
       </ul>
     </div>
   </div>
-
   <div class="expitem rv d2">
-    <div class="expmeta">
+    <div>
       <div class="expyear">MAR – JUN 2025</div>
       <div class="expco">Apresiasi Prestasi Teknik UI</div>
       <div class="exprole">Head of Marketing Communication</div>
     </div>
-    <div class="expbody">
-      Led the integrated marketing strategy for the annual awards event at Faculty of Engineering, UI.
+    <div class="expbody">Led the integrated marketing strategy for the annual awards event at Faculty of Engineering, UI.
       <ul>
         <li>Reached 100+ students and faculty across digital platforms</li>
         <li>Managed cross-functional team: social media, PR, creative content</li>
@@ -487,15 +532,13 @@ footer{padding:1.8rem 3rem;border-top:1px solid var(--g4);display:flex;justify-c
       </ul>
     </div>
   </div>
-
   <div class="expitem rv d3">
-    <div class="expmeta">
+    <div>
       <div class="expyear">FEB 2024 – JAN 2025</div>
       <div class="expco">IMTIFTUI</div>
       <div class="exprole">Staff of Academic & Profession</div>
     </div>
-    <div class="expbody">
-      Contributed to academic & professional development programs for the Industrial Engineering student body at UI.
+    <div class="expbody">Contributed to academic & professional development programs for the IE student body at UI.
       <ul>
         <li>Managed publication on @imtiftui Instagram using Figma</li>
         <li>Organised workshops and seminars for career readiness</li>
@@ -503,7 +546,6 @@ footer{padding:1.8rem 3rem;border-top:1px solid var(--g4);display:flex;justify-c
       </ul>
     </div>
   </div>
-
 </section>
 
 <div class="divider"></div>
@@ -517,93 +559,61 @@ footer{padding:1.8rem 3rem;border-top:1px solid var(--g4);display:flex;justify-c
       <p style="margin-top:2rem;font-size:.72rem;color:var(--g6);max-width:340px;line-height:1.9;">Whether it's a product collab, internship opportunity, or just a conversation about systems and design — I'm open.</p>
     </div>
     <div class="ctlinks rv d2">
-      <a href="mailto:rnicodemus14@gmail.com" class="ctlink">
-        <span class="cttype">EMAIL</span>
-        <span>rnicodemus14@gmail.com</span>
-      </a>
-      <a href="https://www.linkedin.com/in/nicodemus-raphael" class="ctlink">
-        <span class="cttype">LINKEDIN</span>
-        <span>nicodemus-raphael</span>
-      </a>
-      <a href="tel:+6287783093320" class="ctlink">
-        <span class="cttype">PHONE</span>
-        <span>+62 877 8309 3320</span>
-      </a>
-      <a href="#" class="ctlink">
-        <span class="cttype">LOCATION</span>
-        <span>Bekasi, Indonesia — Open to Remote</span>
-      </a>
+      <a href="mailto:rnicodemus14@gmail.com" class="ctlink"><span class="cttype">EMAIL</span><span>rnicodemus14@gmail.com</span></a>
+      <a href="https://www.linkedin.com/in/nicodemus-raphael" class="ctlink"><span class="cttype">LINKEDIN</span><span>nicodemus-raphael</span></a>
+      <a href="tel:+6287783093320" class="ctlink"><span class="cttype">PHONE</span><span>+62 877 8309 3320</span></a>
+      <a href="#" class="ctlink"><span class="cttype">LOCATION</span><span>Bekasi, Indonesia — Open to Remote</span></a>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="fcopy">© 2025 NICODEMUS RAPHAEL SIMATUPANG SIANTURI</div>
-  <div class="fcopy" style="color:var(--g4);">PORTFOLIO v1.0 · UI INDUSTRIAL ENGINEERING</div>
+  <div class="fcopy" style="color:var(--g4);">PORTFOLIO v2.0 · UI INDUSTRIAL ENGINEERING</div>
 </footer>
 
 <script>
 // Cursor
-const cur = document.getElementById('cur');
-document.addEventListener('mousemove', e => {
-  cur.style.left = e.clientX+'px';
-  cur.style.top = e.clientY+'px';
-});
-document.querySelectorAll('a,.pitem,.sktag,button').forEach(el => {
-  el.addEventListener('mouseenter', () => cur.classList.add('big'));
-  el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+document.querySelectorAll('a,.prow,.sktag,.pdeck-btn').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('big'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
 });
 
 // Nav + progress
-const navEl = document.getElementById('nav');
-const pb = document.getElementById('pgbar');
-window.addEventListener('scroll', () => {
-  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-  pb.style.width = pct + '%';
-  navEl.classList.toggle('on', window.scrollY > 50);
+const navEl=document.getElementById('nav'),pb=document.getElementById('pgbar');
+window.addEventListener('scroll',()=>{
+  const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+  pb.style.width=pct+'%';
+  navEl.classList.toggle('on',window.scrollY>50);
 });
 
 // Reveal
-const rvEls = document.querySelectorAll('.rv');
-const rvObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-}, { threshold: 0.1 });
-rvEls.forEach(el => rvObs.observe(el));
+const rvObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:0.1});
+document.querySelectorAll('.rv').forEach(el=>rvObs.observe(el));
 
 // Skill bars
-const barObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('.sbfill').forEach(b => { b.style.width = b.dataset.width + '%'; });
-    }
-  });
-}, { threshold: 0.25 });
-document.querySelectorAll('#skills').forEach(el => barObs.observe(el));
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.querySelectorAll('.sbfill').forEach(b=>{b.style.width=b.dataset.width+'%';});});
+},{threshold:0.25});
+document.querySelectorAll('#skills').forEach(el=>barObs.observe(el));
 
 // Counters
-const cntObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('[data-count]').forEach(el => {
-        const t = +el.dataset.count;
-        let c = 0, step = t / 45;
-        const iv = setInterval(() => {
-          c = Math.min(c + step, t);
-          el.textContent = Math.round(c);
-          if (c >= t) clearInterval(iv);
-        }, 22);
-      });
-    }
-  });
-}, { threshold: 0.4 });
-document.querySelectorAll('.stats').forEach(el => cntObs.observe(el));
+const cntObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.querySelectorAll('[data-count]').forEach(el=>{
+    const t=+el.dataset.count;let c=0,step=t/45;
+    const iv=setInterval(()=>{c=Math.min(c+step,t);el.textContent=Math.round(c);if(c>=t)clearInterval(iv);},22);
+  });});
+},{threshold:0.4});
+document.querySelectorAll('.stats').forEach(el=>cntObs.observe(el));
 
-// Project expand
-function toggleP(item) {
-  const panel = item.nextElementSibling;
-  const isOpen = panel.classList.contains('open');
-  document.querySelectorAll('.ppanel').forEach(p => p.classList.remove('open'));
-  if (!isOpen) panel.classList.add('open');
+// Project card expand/collapse
+function toggleCard(id){
+  const card=document.getElementById(id);
+  const isOpen=card.classList.contains('open');
+  document.querySelectorAll('.pcard').forEach(c=>c.classList.remove('open'));
+  if(!isOpen)card.classList.add('open');
 }
 </script>
 </body>
