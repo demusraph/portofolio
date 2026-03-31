@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nicodemus Raphael — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#050505;--white:#f0ede6;--cream:#e8e2d5;
+  --gold:#c9a84c;--gold-dim:#7a6330;--gold-faint:rgba(201,168,76,.07);
+  --red:#c0392b;
+  --g1:#0d0d0d;--g2:#141414;--g3:#1e1e1e;--g4:#2a2a2a;--g5:#3d3d3d;
+  --g6:#606060;--g7:#909090;--g8:#b8b8b8;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.7;overflow-x:hidden;}
+::selection{background:var(--gold);color:var(--black);}
+
+/* PROGRESS */
+#pgbar{position:fixed;top:0;left:0;height:1px;background:var(--gold);width:0%;z-index:300;transition:width .1s linear;}
+
+/* CURSOR */
+#cur{width:8px;height:8px;border:1px solid var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s,border-color .2s;}
+#cur.big{width:32px;height:32px;background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.5);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 3rem;transition:background .4s,border-color .4s;}
+nav.on{background:rgba(5,5,5,.92);border-bottom:1px solid var(--g4);backdrop-filter:blur(12px);}
+.nlogo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.2em;color:var(--gold);}
+.nlinks{display:flex;gap:1.8rem;}
+.nlinks a{color:var(--g6);text-decoration:none;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;transition:color .25s;}
+.nlinks a:hover{color:var(--white);}
+
+/* HERO */
+#hero{height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 5rem;position:relative;overflow:hidden;}
+.hbg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 75% 35%,rgba(201,168,76,.055) 0%,transparent 65%),radial-gradient(ellipse 35% 55% at 15% 75%,rgba(192,57,43,.035) 0%,transparent 55%);}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.025) 1px,transparent 1px);background-size:55px 55px;}
+.htag{font-size:.58rem;letter-spacing:.22em;color:var(--gold);margin-bottom:.7rem;opacity:0;animation:fadeUp .7s .3s forwards;}
+.hname{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,11vw,9.5rem);line-height:.9;letter-spacing:-.01em;opacity:0;animation:fadeUp .9s .5s forwards;}
+.hname em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--gold);}
+.hrole{margin-top:1.6rem;font-size:.72rem;letter-spacing:.1em;color:var(--g7);max-width:520px;opacity:0;animation:fadeUp .8s .85s forwards;}
+.hrole span{color:var(--gold);}
+.hscroll{position:absolute;bottom:2rem;right:3rem;display:flex;flex-direction:column;align-items:center;gap:.35rem;opacity:0;animation:fadeUp .6s 1.4s forwards;}
+.hscroll-line{width:1px;height:55px;background:linear-gradient(to bottom,var(--gold),transparent);animation:spulse 2s infinite;}
+.hscroll span{font-size:.55rem;letter-spacing:.22em;color:var(--g6);}
+/* side label */
+.hside{position:absolute;left:3rem;bottom:5rem;writing-mode:vertical-lr;font-size:.58rem;letter-spacing:.2em;color:var(--g5);opacity:0;animation:fadeUp .7s 1.1s forwards;}
+
+/* SECTIONS */
+section{padding:8rem 3rem;position:relative;}
+.slabel{font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;display:flex;align-items:center;gap:.7rem;}
+.slabel::after{content:'';flex:1;max-width:50px;height:1px;background:var(--gold-dim);}
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5.5vw,5rem);line-height:.95;letter-spacing:.02em;}
+
+/* ABOUT */
+#about{background:var(--g1);}
+.agrid{display:grid;grid-template-columns:1.1fr .9fr;gap:5rem;margin-top:4.5rem;align-items:start;}
+.abody{color:var(--g7);line-height:2;font-size:.8rem;}
+.abody p+p{margin-top:1.4rem;}
+.abody strong{color:var(--white);font-weight:400;}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;}
+.stat{border-top:1px solid var(--g4);padding-top:1.3rem;}
+.statnum{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);line-height:1;}
+.statlbl{font-size:.58rem;letter-spacing:.14em;color:var(--g6);margin-top:.4rem;}
+/* code card */
+.codecard{border:1px solid var(--g4);padding:1.8rem;font-size:.68rem;color:var(--g6);line-height:2;background:var(--g2);}
+.codecard .cc{color:var(--gold);font-size:.56rem;letter-spacing:.18em;margin-bottom:.9rem;}
+.kw{color:var(--g5);}
+.str{color:var(--white);}
+.num{color:var(--gold);}
+/* marquee */
+.mwrap{overflow:hidden;border-top:1px solid var(--g4);border-bottom:1px solid var(--g4);padding:1rem 0;margin-top:3rem;}
+.mtrack{display:flex;gap:2.5rem;white-space:nowrap;animation:mscroll 20s linear infinite;}
+.mtrack span{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.1em;color:var(--g4);}
+.mtrack span.acc{color:var(--gold);}
+
+/* SKILLS */
+#skills{background:var(--black);}
+.skgrid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin-top:4.5rem;}
+.skcol{}
+.sktitle{font-size:.58rem;letter-spacing:.2em;color:var(--g5);text-transform:uppercase;margin-bottom:1.3rem;}
+.sktags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem;}
+.sktag{padding:.38rem .85rem;border:1px solid var(--g4);font-size:.65rem;letter-spacing:.06em;color:var(--g7);position:relative;overflow:hidden;cursor:default;transition:color .3s,border-color .3s;}
+.sktag::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--gold);transition:width .35s cubic-bezier(.4,0,.2,1);z-index:0;}
+.sktag:hover::before{width:100%;}
+.sktag:hover{color:var(--black);border-color:var(--gold);}
+.sktag span{position:relative;z-index:1;}
+/* bars */
+.sbar{margin-bottom:1.8rem;}
+.sbhead{display:flex;justify-content:space-between;margin-bottom:.5rem;font-size:.65rem;color:var(--g6);}
+.sbtrack{height:1px;background:var(--g4);position:relative;}
+.sbfill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-dim));width:0;transition:width 1.3s cubic-bezier(.4,0,.2,1);}
+/* interests */
+.interests{margin-top:3rem;}
+.int-title{font-size:.58rem;letter-spacing:.2em;color:var(--g5);margin-bottom:1rem;}
+.int-list{display:flex;flex-wrap:wrap;gap:.5rem;}
+.int-tag{padding:.3rem .8rem;background:var(--gold-faint);border:1px solid var(--gold-dim);font-size:.62rem;color:var(--gold);letter-spacing:.06em;}
+
+/* PROJECTS */
+#projects{background:var(--g1);}
+.plist{margin-top:4.5rem;}
+.pitem{padding:2.5rem 0;border-top:1px solid var(--g4);cursor:pointer;position:relative;}
+.pitem-row{display:grid;grid-template-columns:70px 1fr auto;gap:2.5rem;align-items:start;}
+.pitem::after{content:'↗';position:absolute;right:0;top:2.5rem;font-size:1.1rem;color:var(--g4);transition:color .3s,transform .3s;}
+.pitem:hover::after{color:var(--gold);transform:translate(3px,-3px);}
+.pnum{font-size:.6rem;color:var(--g5);letter-spacing:.1em;padding-top:.35rem;}
+.ptitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,2.8vw,2.4rem);line-height:1;letter-spacing:.03em;margin-bottom:.6rem;transition:color .3s;}
+.pitem:hover .ptitle{color:var(--gold);}
+.pdesc{font-size:.72rem;color:var(--g6);line-height:1.8;max-width:520px;}
+.ptags{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:flex-end;max-width:180px;}
+.ptag{font-size:.55rem;letter-spacing:.1em;color:var(--gold);border:1px solid var(--gold-dim);padding:.18rem .5rem;}
+/* panel */
+.ppanel{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.4,0,.2,1);}
+.ppanel.open{max-height:360px;}
+.ppinner{padding:2rem 0 2.5rem 95px;display:grid;grid-template-columns:1fr 1fr;gap:3rem;border-top:1px solid var(--g3);margin-top:.5rem;}
+.ph{font-size:.56rem;letter-spacing:.2em;color:var(--gold);margin-bottom:.7rem;}
+.pbody{font-size:.7rem;color:var(--g6);line-height:1.9;}
+.phl{list-style:none;}
+.phl li{font-size:.7rem;color:var(--g6);padding:.28rem 0;border-bottom:1px solid var(--g3);display:flex;gap:.7rem;}
+.phl li::before{content:'—';color:var(--gold-dim);flex-shrink:0;}
+
+/* EXPERIENCE */
+#experience{background:var(--black);}
+.expitem{display:grid;grid-template-columns:140px 1fr;gap:3rem;padding:3rem 0;border-top:1px solid var(--g4);}
+.expmeta{}
+.expyear{font-size:.6rem;letter-spacing:.15em;color:var(--gold-dim);margin-bottom:.3rem;}
+.expco{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--white);}
+.exprole{font-size:.62rem;color:var(--g6);margin-top:.2rem;}
+.expbody{font-size:.72rem;color:var(--g6);line-height:1.9;}
+.expbody ul{list-style:none;margin-top:.8rem;}
+.expbody ul li{padding:.25rem 0;display:flex;gap:.7rem;}
+.expbody ul li::before{content:'◦';color:var(--gold);flex-shrink:0;}
+
+/* CONTACT */
+#contact{background:var(--g1);}
+.ctgrid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;margin-top:4.5rem;}
+.ctcta{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5.5rem);line-height:.92;letter-spacing:.02em;}
+.ctcta em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--gold);}
+.ctlinks{display:flex;flex-direction:column;gap:1.3rem;justify-content:flex-end;}
+.ctlink{display:flex;align-items:center;gap:1rem;color:var(--g6);text-decoration:none;font-size:.72rem;letter-spacing:.08em;border-bottom:1px solid var(--g4);padding-bottom:1rem;transition:color .3s,border-color .3s;}
+.ctlink:hover{color:var(--gold);border-color:var(--gold-dim);}
+.cttype{font-size:.56rem;color:var(--g4);letter-spacing:.15em;text-transform:uppercase;min-width:65px;}
+
+/* FOOTER */
+footer{padding:1.8rem 3rem;border-top:1px solid var(--g4);display:flex;justify-content:space-between;align-items:center;}
+.fcopy{font-size:.58rem;color:var(--g5);letter-spacing:.1em;}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .75s,transform .75s;}
+.rv.vis{opacity:1;transform:none;}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}
+
+/* DIVIDER */
+.divider{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--g4),transparent);margin:0;}
+
+/* KEYFRAMES */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+@keyframes spulse{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes mscroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  section{padding:5rem 1.5rem;}
+  nav{padding:1rem 1.5rem;}
+  .agrid,.skgrid,.ctgrid{grid-template-columns:1fr;gap:3rem;}
+  .pitem-row{grid-template-columns:1fr;gap:.8rem;}
+  .ptags{justify-content:flex-start;max-width:100%;}
+  .ppinner{padding-left:0;grid-template-columns:1fr;}
+  .expitem{grid-template-columns:1fr;gap:.8rem;}
+  .stats{grid-template-columns:1fr 1fr;}
+  .hname{font-size:clamp(3rem,14vw,5rem);}
+}
+</style>
+</head>
+<body>
+
+<div id="pgbar"></div>
+<div id="cur"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nlogo">NRS</div>
+  <div class="nlinks">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hbg"></div>
+  <div class="hgrid"></div>
+  <div class="hside">INDUSTRIAL ENGINEERING — UI 2023</div>
+  <div class="htag">— 00 / PORTFOLIO · BEKASI, INDONESIA</div>
+  <h1 class="hname">
+    NICODEMUS<br>
+    <em>RAPHAEL</em><br>
+    SIANTURI
+  </h1>
+  <p class="hrole">
+    Industrial Engineering @ <span>Universitas Indonesia</span> &nbsp;·&nbsp;
+    Founder of <span>108 Studio</span> &nbsp;·&nbsp;
+    Product &amp; Operations &nbsp;·&nbsp; GPA 3.44
+  </p>
+  <div class="hscroll">
+    <div class="hscroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="slabel">01 — About</div>
+  <h2 class="stitle rv">THE ENGINEER<br>WHO ALSO<br><em style="font-family:'DM Serif Display',serif;font-style:italic;color:var(--gold)">BUILDS</em></h2>
+  <div class="agrid">
+    <div>
+      <div class="abody rv d1">
+        <p>I'm <strong>Nicodemus Raphael</strong> — an Industrial Engineering student at <strong>Universitas Indonesia</strong> who sits at the intersection of <strong>systems thinking</strong> and <strong>digital creation</strong>.</p>
+        <p>By day I apply DMAIC, simulation modelling, and lean frameworks to real-world operations problems. By night I run <strong>108 Studio</strong> — a digital design studio I founded that has shipped projects totalling over <strong>1 million visits</strong>.</p>
+        <p>I care deeply about <strong>product management, UX research,</strong> and building things that actually work — whether that's a Six Sigma quality improvement for a local SME, or a 3D game world for a global client.</p>
+      </div>
+      <div class="stats rv d2">
+        <div class="stat">
+          <div class="statnum" data-count="3">0</div>
+          <div class="statlbl">MAJOR PROJECTS</div>
+        </div>
+        <div class="stat">
+          <div class="statnum" data-count="20">0</div>
+          <div class="statlbl">STUDIO CLIENTS</div>
+        </div>
+        <div class="stat">
+          <div class="statnum" data-count="1">0</div>
+          <div class="statlbl">M+ VISITS</div>
+        </div>
+      </div>
+    </div>
+    <div class="rv d2">
+      <div class="codecard">
+        <div class="cc">// WHO I AM</div>
+        <div><span class="kw">const</span> nicodemus = {</div>
+        <div style="padding-left:1.4rem;">
+          <div>university: <span class="str">"Universitas Indonesia"</span>,</div>
+          <div>major: <span class="str">"Industrial Engineering"</span>,</div>
+          <div>year: <span class="num">2</span>, gpa: <span class="num">3.44</span>,</div>
+          <div>founder: <span class="str">"108 Studio"</span>,</div>
+          <div>roles: [<span class="str">"Ops"</span>, <span class="str">"Product"</span>, <span class="str">"Design"</span>],</div>
+          <div>languages: [<span class="str">"Bahasa"</span>, <span class="str">"English"</span>],</div>
+          <div>openTo: <span class="str">"Internships & PM Roles"</span></div>
+        </div>
+        <div>}</div>
+      </div>
+    </div>
+  </div>
+  <div class="mwrap">
+    <div class="mtrack">
+      <span>INDUSTRIAL ENGINEERING</span><span class="acc">✦</span><span>PRODUCT DESIGN</span><span class="acc">✦</span><span>108 STUDIO</span><span class="acc">✦</span><span>SIX SIGMA</span><span class="acc">✦</span><span>SIMULATION</span><span class="acc">✦</span><span>IoT DEVICES</span><span class="acc">✦</span><span>UX RESEARCH</span><span class="acc">✦</span>
+      <span>INDUSTRIAL ENGINEERING</span><span class="acc">✦</span><span>PRODUCT DESIGN</span><span class="acc">✦</span><span>108 STUDIO</span><span class="acc">✦</span><span>SIX SIGMA</span><span class="acc">✦</span><span>SIMULATION</span><span class="acc">✦</span><span>IoT DEVICES</span><span class="acc">✦</span><span>UX RESEARCH</span><span class="acc">✦</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="slabel">02 — Skills</div>
+  <h2 class="stitle rv">TECHNICAL<br>ARSENAL</h2>
+  <div class="skgrid">
+    <div>
+      <div class="rv d1">
+        <div class="sktitle">Data & Analysis</div>
+        <div class="sktags">
+          <div class="sktag"><span>Excel</span></div>
+          <div class="sktag"><span>Google Sheets</span></div>
+          <div class="sktag"><span>Python</span></div>
+          <div class="sktag"><span>DMAIC / Six Sigma</span></div>
+          <div class="sktag"><span>FMEA</span></div>
+          <div class="sktag"><span>Fishbone Diagrams</span></div>
+        </div>
+      </div>
+      <div class="rv d2">
+        <div class="sktitle">Design & Prototyping</div>
+        <div class="sktags">
+          <div class="sktag"><span>Figma</span></div>
+          <div class="sktag"><span>Photoshop</span></div>
+          <div class="sktag"><span>Blender</span></div>
+          <div class="sktag"><span>Roblox Studio</span></div>
+        </div>
+      </div>
+      <div class="rv d3">
+        <div class="sktitle">Methods & Frameworks</div>
+        <div class="sktags">
+          <div class="sktag"><span>Simio</span></div>
+          <div class="sktag"><span>Design Thinking</span></div>
+          <div class="sktag"><span>5W+1H</span></div>
+          <div class="sktag"><span>CTQ Analysis</span></div>
+          <div class="sktag"><span>Discrete-Event Simulation</span></div>
+        </div>
+      </div>
+      <div class="interests rv d3">
+        <div class="int-title">Interests</div>
+        <div class="int-list">
+          <span class="int-tag">Product Management</span>
+          <span class="int-tag">Product Development</span>
+          <span class="int-tag">User Interface</span>
+          <span class="int-tag">User Research</span>
+        </div>
+      </div>
+    </div>
+    <div class="rv d2">
+      <div class="sktitle">Proficiency</div>
+      <div class="sbar">
+        <div class="sbhead"><span>Figma / Design</span><span>88%</span></div>
+        <div class="sbtrack"><div class="sbfill" data-width="88"></div></div>
+      </div>
+      <div class="sbar">
+        <div class="sbhead"><span>Excel / Data Analysis</span><span>85%</span></div>
+        <div class="sbtrack"><div class="sbfill" data-width="85"></div></div>
+      </div>
+      <div class="sbar">
+        <div class="sbhead"><span>Python</span><span>72%</span></div>
+        <div class="sbtrack"><div class="sbfill" data-width="72"></div></div>
+      </div>
+      <div class="sbar">
+        <div class="sbhead"><span>Six Sigma / DMAIC</span><span>80%</span></div>
+        <div class="sbtrack"><div class="sbfill" data-width="80"></div></div>
+      </div>
+      <div class="sbar">
+        <div class="sbhead"><span>Blender / 3D</span><span>82%</span></div>
+        <div class="sbtrack"><div class="sbfill" data-width="82"></div></div>
+      </div>
+      <div class="sbar">
+        <div class="sbhead"><span>Simulation (Simio)</span><span>75%</span></div>
+        <div class="sbtrack"><div class="sbfill" data-width="75"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="slabel">03 — University Projects</div>
+  <h2 class="stitle rv">WORK THAT<br><em style="font-family:'DM Serif Display',serif;font-style:italic;color:var(--gold)">MATTERED</em></h2>
+  <div class="plist">
+
+    <!-- Project 1 -->
+    <div class="pitem rv" onclick="toggleP(this)">
+      <div class="pitem-row">
+        <div class="pnum">01 · 2025</div>
+        <div>
+          <div class="ptitle">RayLo — IoT Brake Safety Device</div>
+          <div class="pdesc">An aftermarket IoT device that prevents motorcycle brake failure by monitoring disc temperatures in real-time and alerting riders before brake fade occurs.</div>
+        </div>
+        <div class="ptags">
+          <span class="ptag">IoT</span><span class="ptag">Product Design</span><span class="ptag">UX Research</span><span class="ptag">Design Thinking</span>
+        </div>
+      </div>
+    </div>
+    <div class="ppanel">
+      <div class="ppinner">
+        <div>
+          <div class="ph">OVERVIEW</div>
+          <div class="pbody">Designed end-to-end as part of a 5-member Product Design team. RayLo addresses a critical safety gap: 64% of surveyed riders prioritised rapid heat danger alerts. Using 5W+1H and consumer surveys (25+ respondents), the team developed a plug-and-play, cognitively accessible solution for daily riders.</div>
+        </div>
+        <div>
+          <div class="ph">KEY OUTCOMES</div>
+          <ul class="phl">
+            <li>64% of respondents identified as target users in market research</li>
+            <li>Plug-and-play design — zero technical installation required</li>
+            <li>Addresses "silent failure" gap in existing motorcycle safety</li>
+            <li>Applied design-thinking across full ideation-to-prototype cycle</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="pitem rv d1" onclick="toggleP(this)">
+      <div class="pitem-row">
+        <div class="pnum">02 · 2025</div>
+        <div>
+          <div class="ptitle">Quality Improvement — Lussie Juice</div>
+          <div class="pdesc">DMAIC-driven quality improvement initiative for a local SME, increasing the production sigma level from 1.67σ to 2.33σ through root cause analysis and new SOPs.</div>
+        </div>
+        <div class="ptags">
+          <span class="ptag">Six Sigma</span><span class="ptag">DMAIC</span><span class="ptag">FMEA</span><span class="ptag">Lean Ops</span>
+        </div>
+      </div>
+    </div>
+    <div class="ppanel">
+      <div class="ppinner">
+        <div>
+          <div class="ph">OVERVIEW</div>
+          <div class="pbody">Led as coordinator for a Quality Improvement Project. Applied the full DMAIC framework to standardise production at Lussie Juice — a local SME. Eliminated "feeling-based" operations through Fishbone diagrams, FMEA analysis, and rigorous CTQ factor mapping.</div>
+        </div>
+        <div>
+          <div class="ph">KEY OUTCOMES</div>
+          <ul class="phl">
+            <li>Sigma level raised: 1.67σ → 2.33σ (+0.66σ improvement)</li>
+            <li>Developed standardised SOPs for recipes & staff training</li>
+            <li>RCA via Fishbone & FMEA eliminated root defect causes</li>
+            <li>Significant reduction in product defect rate post-pilot</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="pitem rv d2" onclick="toggleP(this)">
+      <div class="pitem-row">
+        <div class="pnum">03 · 2025</div>
+        <div>
+          <div class="ptitle">Bangladesh Disaster Relief Simulation</div>
+          <div class="pdesc">A discrete-event simulation model built in Simio to optimise the multi-modal distribution of 80,000 tons of humanitarian aid to 2 million residents within 40 days.</div>
+        </div>
+        <div class="ptags">
+          <span class="ptag">Simio</span><span class="ptag">Simulation</span><span class="ptag">Logistics</span><span class="ptag">Optimisation</span>
+        </div>
+      </div>
+    </div>
+    <div class="ppanel">
+      <div class="ppinner">
+        <div>
+          <div class="ph">OVERVIEW</div>
+          <div class="pbody">System Modelling project simulating disaster relief logistics in Bangladesh. Integrated helicopters, planes, ships, and trucks into a multi-modal strategy. Model validated through Face Validity and experimental data to reflect real-world constraints, balancing a $93.6M operational budget.</div>
+        </div>
+        <div>
+          <div class="ph">KEY OUTCOMES</div>
+          <ul class="phl">
+            <li>100% delivery of 80,000 tons to 2M residents in 40 days</li>
+            <li>Multi-modal strategy covering 4 transport types</li>
+            <li>Total cost optimised at ~$93.6M operational budget</li>
+            <li>Model validated via Face Validity & experimental testing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="slabel">04 — Experience</div>
+  <h2 class="stitle rv">BEYOND THE<br>CLASSROOM</h2>
+
+  <div class="expitem rv d1">
+    <div class="expmeta">
+      <div class="expyear">OCT 2025 – PRESENT</div>
+      <div class="expco">108 Studio</div>
+      <div class="exprole">Founder & Project Leader</div>
+    </div>
+    <div class="expbody">
+      A digital design studio I founded from the ground up. We serve clients across Indonesia and beyond, specialising in 3D environments and interactive digital experiences.
+      <ul>
+        <li>Projects totalling 1M+ visits via strategic game development</li>
+        <li>20+ clients served across 2+ countries</li>
+        <li>3D environment design using Blender, Roblox Studio, and AI tools</li>
+        <li>End-to-end project management from brief to final delivery</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="expitem rv d2">
+    <div class="expmeta">
+      <div class="expyear">MAR – JUN 2025</div>
+      <div class="expco">Apresiasi Prestasi Teknik UI</div>
+      <div class="exprole">Head of Marketing Communication</div>
+    </div>
+    <div class="expbody">
+      Led the integrated marketing strategy for the annual awards event at Faculty of Engineering, UI.
+      <ul>
+        <li>Reached 100+ students and faculty across digital platforms</li>
+        <li>Managed cross-functional team: social media, PR, creative content</li>
+        <li>Maintained cohesive brand identity across all touchpoints</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="expitem rv d3">
+    <div class="expmeta">
+      <div class="expyear">FEB 2024 – JAN 2025</div>
+      <div class="expco">IMTIFTUI</div>
+      <div class="exprole">Staff of Academic & Profession</div>
+    </div>
+    <div class="expbody">
+      Contributed to academic & professional development programs for the Industrial Engineering student body at UI.
+      <ul>
+        <li>Managed publication on @imtiftui Instagram using Figma</li>
+        <li>Organised workshops and seminars for career readiness</li>
+        <li>Facilitated events enhancing academic performance</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="slabel">05 — Contact</div>
+  <div class="ctgrid">
+    <div class="rv">
+      <h2 class="ctcta">LET'S<br>MAKE<br>SOME<em>THING</em></h2>
+      <p style="margin-top:2rem;font-size:.72rem;color:var(--g6);max-width:340px;line-height:1.9;">Whether it's a product collab, internship opportunity, or just a conversation about systems and design — I'm open.</p>
+    </div>
+    <div class="ctlinks rv d2">
+      <a href="mailto:rnicodemus14@gmail.com" class="ctlink">
+        <span class="cttype">EMAIL</span>
+        <span>rnicodemus14@gmail.com</span>
+      </a>
+      <a href="https://www.linkedin.com/in/nicodemus-raphael" class="ctlink">
+        <span class="cttype">LINKEDIN</span>
+        <span>nicodemus-raphael</span>
+      </a>
+      <a href="tel:+6287783093320" class="ctlink">
+        <span class="cttype">PHONE</span>
+        <span>+62 877 8309 3320</span>
+      </a>
+      <a href="#" class="ctlink">
+        <span class="cttype">LOCATION</span>
+        <span>Bekasi, Indonesia — Open to Remote</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fcopy">© 2025 NICODEMUS RAPHAEL SIMATUPANG SIANTURI</div>
+  <div class="fcopy" style="color:var(--g4);">PORTFOLIO v1.0 · UI INDUSTRIAL ENGINEERING</div>
+</footer>
+
+<script>
+// Cursor
+const cur = document.getElementById('cur');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX+'px';
+  cur.style.top = e.clientY+'px';
+});
+document.querySelectorAll('a,.pitem,.sktag,button').forEach(el => {
+  el.addEventListener('mouseenter', () => cur.classList.add('big'));
+  el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+});
+
+// Nav + progress
+const navEl = document.getElementById('nav');
+const pb = document.getElementById('pgbar');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  pb.style.width = pct + '%';
+  navEl.classList.toggle('on', window.scrollY > 50);
+});
+
+// Reveal
+const rvEls = document.querySelectorAll('.rv');
+const rvObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1 });
+rvEls.forEach(el => rvObs.observe(el));
+
+// Skill bars
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.sbfill').forEach(b => { b.style.width = b.dataset.width + '%'; });
+    }
+  });
+}, { threshold: 0.25 });
+document.querySelectorAll('#skills').forEach(el => barObs.observe(el));
+
+// Counters
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('[data-count]').forEach(el => {
+        const t = +el.dataset.count;
+        let c = 0, step = t / 45;
+        const iv = setInterval(() => {
+          c = Math.min(c + step, t);
+          el.textContent = Math.round(c);
+          if (c >= t) clearInterval(iv);
+        }, 22);
+      });
+    }
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('.stats').forEach(el => cntObs.observe(el));
+
+// Project expand
+function toggleP(item) {
+  const panel = item.nextElementSibling;
+  const isOpen = panel.classList.contains('open');
+  document.querySelectorAll('.ppanel').forEach(p => p.classList.remove('open'));
+  if (!isOpen) panel.classList.add('open');
+}
+</script>
+</body>
+</html>
